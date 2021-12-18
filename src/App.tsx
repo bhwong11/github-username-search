@@ -11,23 +11,20 @@ interface UserData{
   avatar_url:string;
 }
 
+interface Initial{
+  status:'initial'
+}
+
 type Service={
-  status:'initial'|'loaded'|'error'
+  status:|'loaded'|'error'
   payload:UserData;
 }
 
 const App:React.FC=()=> {
   const [searchTerm, setSearchTerm]=useState<string>('');
   const [noMatch,setNoMatch] = useState<string>('');
-  const [userData,setUserData] = useState<Service>({
-    status:'initial',
-    payload:{
-    name:'',
-    email:'',
-    bio:'',
-    login:'',
-    avatar_url:'',
-  }});
+  const [userData,setUserData] = useState<Service | Initial>({
+    status:'initial'});
   const fetchUserData= (username:String):void=>{
     setNoMatch('');
     fetch(`https://api.github.com/users/${username}`)
@@ -36,14 +33,8 @@ const App:React.FC=()=> {
       if(json.message==='Not Found'){
         window.alert("No match found!")
         setUserData({
-          status:'initial',
-          payload:{
-          name:'',
-          email:'',
-          bio:'',
-          login:'',
-          avatar_url:'',
-        }})
+          status:'initial'
+        })
         setNoMatch('No matches found');
         return
       }
@@ -51,14 +42,8 @@ const App:React.FC=()=> {
     })
     .catch((err)=>
       setUserData({
-        status:'initial',
-        payload:{
-        name:'',
-        email:'',
-        bio:'',
-        login:'',
-        avatar_url:'',
-      }})
+        status:'initial'
+      })
     )
   }
   return (
@@ -69,13 +54,7 @@ const App:React.FC=()=> {
       onChange={(e):any=>setSearchTerm(e.target.value)}/>
       <button onClick={()=>fetchUserData(searchTerm)}>Search</button>
       <button onClick={(e):void=>{
-      setUserData({status:'initial',payload:{
-        name:'',
-        login:'',
-        email:'',
-        bio:'',
-        avatar_url:'',
-      }})
+      setUserData({status:'initial'})
       setNoMatch('');
     }
     }
