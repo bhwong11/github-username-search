@@ -48,17 +48,25 @@ const App:React.FC=()=> {
   }
   return (
     <div className="App">
-      Hello World!
+      <div className="search-header">
+      <div>
+        Enter github user to search
+      </div>
       <input 
       value = {searchTerm} 
-      onChange={(e):any=>setSearchTerm(e.target.value)}/>
+      placeholder={'username'}
+      onChange={(e):any=>setSearchTerm(e.target.value)}
+      />
       <button onClick={()=>fetchUserData(searchTerm)}>Search</button>
       <button onClick={(e):void=>{
       setUserData({status:'initial'})
       setNoMatch('');
-    }
-    }
+        }
+      }
       >clear Search</button>
+      </div>
+
+
       {userData.status==='loaded'?<>
         <UserCard 
         name={userData.payload.name} 

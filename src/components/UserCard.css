@@ -1,0 +1,23 @@
+.user-card{
+    display: grid;
+    margin:20px;
+    padding: 10px;
+    width: 500px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+.user-card *{
+    padding: 5px;
+}
+.avatar-img{
+    height: 200px;
+}
+.title{
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 600px){
+    .user-card{
+      width:300px;
+    }
+  }
